@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { defaultLocale, type Locale } from "@/lib/config";
+import type { Metadata } from "next";
+import { brand, defaultLocale, type Locale } from "@/lib/config";
 import { getDictionary } from "@/lib/dictionary";
 import { products, type ProductCategory } from "@/lib/products";
 import { ProductGrid } from "@/components/shop/ProductGrid";
@@ -8,6 +9,66 @@ import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 
 type SearchParams = { cat?: string };
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const store = await cookies();
+  const locale = ((store.get("locale")?.value as Locale) ??
+    defaultLocale) as Locale;
+  const t = getDictionary(locale);
+  const params = await searchParams;
+
+  const activeCategory =
+    params.cat && ["fragrance", "skin", "adornment"].includes(params.cat)
+      ? (params.cat as ProductCategory)
+      : null;
+
+  // Title muda quando filtro por categoria: "Fragrance · The Atelier · NŪR"
+  const categoryLabel = activeCategory
+    ? locale === "ar"
+      ? t.shop[
+          `filter${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}` as
+            | "filterFragrance"
+            | "filterSkin"
+            | "filterAdornment"
+        ]
+      : t.shop[
+          `filter${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}` as
+            | "filterFragrance"
+            | "filterSkin"
+            | "filterAdornment"
+        ]
+    : null;
+
+  const title = categoryLabel
+    ? `${categoryLabel} · ${t.shop.heading} · ${brand.name}`
+    : `${t.shop.heading} · ${brand.name}`;
+
+  return {
+    title,
+    description: t.shop.subheading,
+    openGraph: {
+      title,
+      description: t.shop.subheading,
+      type: "website",
+      siteName: brand.name,
+      images: [
+        {
+          url: "/images/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: t.meta.title,
+        },
+      ],
+    },
+    alternates: {
+      canonical: activeCategory ? `/atelier?cat=${activeCategory}` : "/atelier",
+    },
+  };
+}
 
 export default async function AtelierPage({
   searchParams,

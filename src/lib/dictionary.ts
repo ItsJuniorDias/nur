@@ -178,7 +178,7 @@ const en: Dictionary = {
       description:
         "Demi-fine jewelry — architectural, unadorned, made in recycled 18k gold and Brazilian sterling.",
     },
-    launchTag: "Autumn 2026",
+    launchTag: "First production",
     exploreAtelier: "Enter the atelier",
   },
   ingredients: {
@@ -338,7 +338,7 @@ const ar: Dictionary = {
       description:
         "مجوهرات نصف راقية — معمارية، خالصة، من ذهب معاد تدويره عيار ١٨ وفضة برازيلية.",
     },
-    launchTag: "خريف ٢٠٢٦",
+    launchTag: "الدفعة الأولى",
     exploreAtelier: "ادخل الدار",
   },
   ingredients: {

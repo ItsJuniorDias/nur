@@ -4,7 +4,6 @@ import { Hero } from "@/components/Hero";
 import { Manifesto } from "@/components/Manifesto";
 import { Collections } from "@/components/Collections";
 import { Ingredients } from "@/components/Ingredients";
-import { Signup } from "@/components/Signup";
 import { Footer } from "@/components/Footer";
 
 export default async function HomePage() {
@@ -18,7 +17,6 @@ export default async function HomePage() {
       <Manifesto locale={locale} />
       <Collections locale={locale} />
       <Ingredients locale={locale} />
-      <Signup locale={locale} />
       <Footer locale={locale} />
     </main>
   );

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
-import { brand, defaultLocale, type Locale } from "@/lib/config";
+import { brand, defaultLocale, siteUrl, type Locale } from "@/lib/config";
 import { getDictionary } from "@/lib/dictionary";
 import { PixelScripts } from "@/components/PixelScripts";
 import { Nav } from "@/components/Nav";
@@ -23,18 +23,27 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t.meta.title,
     description: t.meta.description,
-    metadataBase: new URL(`https://${brand.domain}`),
+    metadataBase: new URL(siteUrl),
     openGraph: {
       title: t.meta.title,
       description: t.meta.description,
       type: "website",
       locale: locale === "ar" ? "ar_AE" : "en_US",
       siteName: brand.name,
+      images: [
+        {
+          url: "/images/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: t.meta.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t.meta.title,
       description: t.meta.description,
+      images: ["/images/og-image.jpg"],
     },
     alternates: {
       canonical: "/",

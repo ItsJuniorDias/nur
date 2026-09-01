@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { defaultLocale, type Locale } from "@/lib/config";
+import type { Metadata } from "next";
+import { defaultLocale, brand, type Locale } from "@/lib/config";
 import { getDictionary } from "@/lib/dictionary";
 import {
   findProduct,
@@ -9,7 +10,7 @@ import {
   products,
   productsByCategory,
 } from "@/lib/products";
-import { SafeImage } from "@/components/SafeImage";
+import { SafeImage, images } from "@/components/SafeImage";
 import { AddToBag } from "@/components/shop/AddToBag";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { Footer } from "@/components/Footer";
@@ -17,6 +18,61 @@ import { Reveal } from "@/components/Reveal";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = findProduct(slug);
+  if (!product) return {};
+
+  const store = await cookies();
+  const locale = ((store.get("locale")?.value as Locale) ??
+    defaultLocale) as Locale;
+
+  const name = loc(product.name, locale);
+  const tagline = loc(product.tagline, locale);
+  const description = loc(product.description, locale);
+  const image = images[product.imageId];
+
+  // Title format: "Norte — a slow oil parfum · NŪR"
+  const title = `${name} — ${tagline.replace(/\.$/, "")} · ${brand.name}`;
+  // Description: primeiros 155 chars da descrição real do produto (limite SEO)
+  const metaDesc =
+    description.length > 155
+      ? description.slice(0, 152).trimEnd() + "…"
+      : description;
+
+  return {
+    title,
+    description: metaDesc,
+    openGraph: {
+      title,
+      description: metaDesc,
+      type: "website",
+      siteName: brand.name,
+      images: [
+        {
+          url: image.file,
+          width: image.width,
+          height: image.height,
+          alt: locale === "ar" ? image.altAr : image.altEn,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: metaDesc,
+      images: [image.file],
+    },
+    alternates: {
+      canonical: `/atelier/${product.slug}`,
+    },
+  };
 }
 
 export default async function ProductPage({

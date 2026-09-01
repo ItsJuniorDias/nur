@@ -3,11 +3,34 @@
  * Troca variáveis abaixo pra rebranding rápido ou pra plugar pixels/analytics.
  */
 
+/**
+ * Resolve URL canônico do site.
+ * Ordem de precedência:
+ *   1. NEXT_PUBLIC_SITE_URL (setado manualmente — usa quando tem domínio próprio)
+ *   2. VERCEL_URL (injetado automaticamente pelo Vercel em deploys)
+ *   3. localhost:3000 (dev)
+ * Retorna sempre com https:// e SEM trailing slash.
+ */
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
+}
+
+export const siteUrl = resolveSiteUrl();
+
 export const brand = {
   name: "NŪR",
   nameArabic: "نور",
-  domain: "nur-atelier.com", // troca quando comprar
-  email: "hello@nur-atelier.com",
+  domain: siteUrl.replace(/^https?:\/\//, ""), // derivado do siteUrl
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@nur-atelier.com",
   instagram: "@nur.atelier",
   whatsapp: "+9715XXXXXXXX", // WhatsApp Business dos EAU quando abrir
   launchDate: "2026-11-01T00:00:00+04:00", // Gulf Standard Time
