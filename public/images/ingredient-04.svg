@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0e6d6"/>
+      <stop offset="100%" stop-color="#e7dac6"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#10614a" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#dots)"/>
+
+  <!-- Safe zone rectangle (visual only) -->
+  <rect x="102" y="102" width="819" height="819"
+        fill="none" stroke="#10614a" stroke-width="2"
+        stroke-dasharray="12 8" opacity="0.5"/>
+
+  <!-- Safe zone label -->
+  <text x="122" y="137"
+        font-family="Inter, sans-serif" font-size="22"
+        fill="#10614a" opacity="0.7"
+        letter-spacing="4">SAFE · FULL</text>
+
+  <!-- Main label -->
+  <text x="512" y="492"
+        font-family="Inter, sans-serif" font-size="61"
+        font-weight="200" fill="#14261f"
+        text-anchor="middle"
+        letter-spacing="8">ROCK QUARTZ</text>
+
+  <!-- Dimensions -->
+  <text x="512" y="573"
+        font-family="Inter, sans-serif" font-size="28"
+        font-weight="300" fill="#14261f" opacity="0.5"
+        text-anchor="middle"
+        letter-spacing="6">1024 × 1024</text>
+
+  <!-- NUR mark bottom-right corner -->
+  <text x="984" y="984"
+        font-family="Inter, sans-serif" font-size="22"
+        font-weight="300" fill="#14261f" opacity="0.4"
+        text-anchor="end"
+        letter-spacing="6">NŪR · PLACEHOLDER</text>
+</svg>

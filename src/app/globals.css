@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sand & Emerald palette */
+  --color-sand: #f0e6d6;
+  --color-sand-soft: #e7dac6;
+  --color-sand-deep: #d8caae;
+  --color-ink: #14261f;
+  --color-emerald-deep: #0a1a14;
+  --color-emerald-deep-soft: #0f2a20;
+  --color-emerald: #10614a;
+  --color-emerald-hover: #0b4736;
+  --color-emerald-light: #3fae86;
+  --color-line: rgba(16, 97, 74, 0.18);
+  --color-line-strong: rgba(16, 97, 74, 0.4);
+  --color-line-sand: rgba(240, 230, 214, 0.22);
+  --color-line-sand-strong: rgba(240, 230, 214, 0.45);
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+    sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.03em;
+  --tracking-body: -0.005em;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+html[dir="rtl"] { font-family: var(--font-arabic); }
+html[dir="ltr"] { font-family: var(--font-sans); }
+
+body {
+  background: var(--color-sand);
+  color: var(--color-ink);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-emerald);
+  color: var(--color-sand);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-sand); }
+::-webkit-scrollbar-thumb { background: var(--color-emerald); border-radius: 3px; opacity: 0.6; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-emerald-hover); }
+
+/* Layout */
+@utility container-luxe {
+  @apply mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-16;
+}
+@utility container-wide {
+  @apply mx-auto w-full max-w-[1600px] px-4 md:px-8 lg:px-12;
+}
+
+/* Type */
+@utility display-mega {
+  font-size: clamp(4.5rem, 15vw, 14rem);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-display);
+  font-weight: 200;
+}
+@utility display-xl {
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  font-weight: 200;
+}
+@utility heading-lg {
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-heading);
+  font-weight: 300;
+}
+@utility eyebrow {
+  @apply text-xs uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 500;
+}
+@utility body-lg {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+  letter-spacing: var(--tracking-body);
+  font-weight: 300;
+}
+@utility hairline {
+  @apply w-full;
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* =====================================================
+ * BLUR SYSTEM (Apple-like)
+ * ===================================================== */
+
+.blur-nav-sand {
+  background: rgba(240, 230, 214, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+@supports not (backdrop-filter: blur(20px)) {
+  .blur-nav-sand { background: rgba(240, 230, 214, 0.94); }
+}
+
+.blur-nav-emerald {
+  background: rgba(10, 26, 20, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+@supports not (backdrop-filter: blur(20px)) {
+  .blur-nav-emerald { background: rgba(10, 26, 20, 0.94); }
+}
+
+.blur-overlay-sand {
+  background: rgba(240, 230, 214, 0.65);
+  backdrop-filter: saturate(170%) blur(18px);
+  -webkit-backdrop-filter: saturate(170%) blur(18px);
+}
+@supports not (backdrop-filter: blur(18px)) {
+  .blur-overlay-sand { background: rgba(240, 230, 214, 0.9); }
+}
+
+.blur-overlay-emerald {
+  background: rgba(10, 26, 20, 0.55);
+  backdrop-filter: saturate(170%) blur(18px);
+  -webkit-backdrop-filter: saturate(170%) blur(18px);
+}
+@supports not (backdrop-filter: blur(18px)) {
+  .blur-overlay-emerald { background: rgba(10, 26, 20, 0.85); }
+}
+
+.blur-pill-sand {
+  background: rgba(240, 230, 214, 0.55);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border: 1px solid rgba(240, 230, 214, 0.35);
+}
+
+.blur-pill-emerald {
+  background: rgba(10, 26, 20, 0.4);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border: 1px solid rgba(240, 230, 214, 0.15);
+}
+
+.blur-glass {
+  background: rgba(240, 230, 214, 0.42);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  border: 1px solid rgba(240, 230, 214, 0.45);
+}
+
+/* =====================================================
+ * IMAGE SAFE-ZONE SYSTEM
+ *
+ * Uso típico:
+ *   <div class="safe-zone safe-zone-overlay-bottom">
+ *     <img class="safe-zone-image ken-burns" src="..." />
+ *     <div class="safe-zone-content justify-end">…</div>
+ *   </div>
+ *
+ * Variantes de overlay (garantem legibilidade):
+ *   - safe-zone-overlay-bottom → escurece o rodapé
+ *   - safe-zone-overlay-center → clareia o miolo
+ *   - safe-zone-overlay-full   → clareia tudo (leve)
+ *
+ * Prompts do gerador de imagem devem instruir o modelo
+ * a manter a região OPOSTA à zona segura livre de assunto.
+ * ===================================================== */
+
+.safe-zone {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.safe-zone-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.safe-zone-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.safe-zone-overlay-bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(10, 26, 20, 0.6) 0%,
+    rgba(10, 26, 20, 0.18) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+.safe-zone-overlay-center::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 50%,
+    rgba(240, 230, 214, 0.35) 0%,
+    rgba(240, 230, 214, 0.05) 55%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+.safe-zone-overlay-full::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 230, 214, 0.15),
+    rgba(240, 230, 214, 0.55)
+  );
+  pointer-events: none;
+}
+
+/* Aspect ratios prontos */
+@utility aspect-hero {
+  aspect-ratio: 16 / 9;
+}
+@utility aspect-portrait {
+  aspect-ratio: 4 / 5;
+}
+@utility aspect-square-luxe {
+  aspect-ratio: 1 / 1;
+}
+@utility aspect-landscape {
+  aspect-ratio: 3 / 2;
+}
+@utility aspect-og {
+  aspect-ratio: 1200 / 630;
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.2s var(--ease-out-quart),
+    transform 1.2s var(--ease-out-quart);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+
+/* Ken Burns leve pra hero images (movimento sutil) */
+@keyframes ken-burns {
+  0% { transform: scale(1.02) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-1%, -1%); }
+}
+.ken-burns {
+  animation: ken-burns 24s var(--ease-in-out-quart) infinite alternate;
+  will-change: transform;
+}
+
+/* Emerald section (invertida) */
+.emerald-section {
+  background: var(--color-emerald-deep);
+  color: var(--color-sand);
+}
+.emerald-section ::selection {
+  background: var(--color-emerald-light);
+  color: var(--color-emerald-deep);
+}
+
+[lang="ar"],
+[dir="rtl"] {
+  font-family: var(--font-arabic);
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .ken-burns { animation: none; }
+}
